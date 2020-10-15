@@ -15,7 +15,42 @@ clienteBD = [{}]
 paqueteBD = [{}]
 @app.route('/')
 def home():
-    return("Hola")
+    return('''
+    <script language="JavaScript" type="text/javascript">
+
+//<![CDATA[
+
+mensagem = prompt("Por favor, ingresa tu nombre",'');
+
+if (mensagem==null) {
+
+document.write("¡Hola, visitante!")
+
+}else{
+
+if (mensagem=='') {
+
+document.write("<b><font face=arial size=5 color=#000000>¡Hola, visitante!<\/font><\/b>")
+
+}else{
+
+document.write("<b><font face=arial size=5 color=#000000>¡Hola "+mensagem+"! Bienvenido a mi sitio<\/font><\/b>");
+
+}
+
+}
+
+//]]>
+
+</script>
+
+<span class="Apple-style-span" style="font-family: 'Trebuchet MS', sans-serif;">
+
+</span>
+
+<span class="Apple-style-span" style="font-family: 'Trebuchet MS', sans-serif;">
+
+</span> ''')
 @app.route('/clientes/' or '/clientes' ,methods=['GET'])
 def get_all_cientes():
     return jsonify({'clientes': clienteBD})
