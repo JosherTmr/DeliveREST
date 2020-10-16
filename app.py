@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 from os import abort
 from flask import Flask
 from flask import jsonify
@@ -13,44 +7,10 @@ from flask import request
 app = Flask(__name__)
 clienteBD = [{}]
 paqueteBD = [{}]
+facturaBD = [{}]
 @app.route('/')
 def home():
-    return('''
-    <script language="JavaScript" type="text/javascript">
-
-//<![CDATA[
-
-mensagem = prompt("Por favor, ingresa tu nombre",'');
-
-if (mensagem==null) {
-
-document.write("¡Hola, visitante!")
-
-}else{
-
-if (mensagem=='') {
-
-document.write("<b><font face=arial size=5 color=#000000>¡Hola, visitante!<\/font><\/b>")
-
-}else{
-
-document.write("<b><font face=arial size=5 color=#000000>¡Hola "+mensagem+"! Bienvenido a mi sitio<\/font><\/b>");
-
-}
-
-}
-
-//]]>
-
-</script>
-
-<span class="Apple-style-span" style="font-family: 'Trebuchet MS', sans-serif;">
-
-</span>
-
-<span class="Apple-style-span" style="font-family: 'Trebuchet MS', sans-serif;">
-
-</span> ''')
+    return("Hola")
 @app.route('/clientes/' or '/clientes' ,methods=['GET'])
 def get_all_cientes():
     return jsonify({'clientes': clienteBD})
@@ -94,7 +54,7 @@ def delete_student(cltId):
     clienteBD.remove(row[0])
     return jsonify({'response': 'Success'})
 
-@app.route('/paquetes', methods = ['GET'])
+@app.route('/paquetes/' or '/paquetes', methods = ['GET'])
 def get_all_paquetes():
     return jsonify({'paquetes': paqueteBD})
 @app.route('/paquetes/<pqtId>', methods = ['GET'])
@@ -102,18 +62,50 @@ def get_paquetes(pqtId):
     paq = [pqt for pqt in paqueteBD if (pqt['id'] == pqtId)]
     return jsonify({'pqt': paq})
 
+@app.route('/paquetes/',methods=['POST'])
+def create_paquete():
+    dat = {
+    'id_paq': request.json['id_paq'],
+    'nombre_paq': request.json['nombre_paq'],
+    'precio': request.json['apellidos'],
+    'destino': request.json['destino'],
+    'trayectoria':request.json['trayectoria']
+    }
+    paqueteBD.append(dat)
+@app.route('/paquetes/trayectoria/<Destino>',methods=['GET'])
+def set_trayectoria(Destino):
+    trayectoriaBD = {
+        'local': 3500,
+        'Centro América': 5000,
+        'Norte América' : 7500,
+        'Sur América': 7200,
+        'Europa': 12000,
+        'Asia': 13500,
+        'África': 11350
+    }
+    return jsonify(trayectoriaBD[Destino])
     
-    
+@app.route('/factura/', methods =['POST'])
+def crear_factura():
+    fac = { 
+    'id_factura': request.json['fctId'],
+    'id_cliente': request.json['pqtId'],
+    'fecha': request.json['fecha'],
+    'paquetes': request.json['paquetes'],
+    'total' : request.json['total']
+    }
+    facturaBD.append(fac)
+    return jsonify(fac)
 
-
-
-    
+@app.route('/factura/<id_factura>', methods= ['GET'])
+def get_facturas(id_factura):
+    fac = [fct for fct in facturaBD if (fct['id_factura'] == id_factura)]
+    return jsonify({'fct': fac})
+            
 
 if __name__ == '__main__':
     app.run()
 
-
-# In[ ]:
 
 
 
