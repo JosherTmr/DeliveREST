@@ -1,4 +1,3 @@
-# coding: utf-8
 from os import abort
 from flask import Flask
 from flask import jsonify
@@ -73,6 +72,7 @@ def create_paquete():
     'trayectoria':request.json['trayectoria']
     }
     paqueteBD.append(dat)
+    return jsonify(dat)
 @app.route('/paquetes/trayectoria/<Destino>',methods=['GET'])
 def set_trayectoria(Destino):
     trayectoriaBD = {
@@ -106,6 +106,7 @@ def get_factura(id_factura):
 
 if __name__ == '__main__':
     app.run()
+
 
 
 
