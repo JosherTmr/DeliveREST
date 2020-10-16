@@ -6,9 +6,9 @@ from flask import request
 
 
 app = Flask(__name__)
-clienteBD = [{}]
-paqueteBD = [{}]
-facturaBD = [{}]
+clienteBD = []
+paqueteBD = []
+facturaBD = []
 @app.route('/')
 def home():
     return("Hola")
