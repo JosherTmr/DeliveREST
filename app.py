@@ -89,8 +89,8 @@ def set_trayectoria(Destino):
 @app.route('/factura/', methods =['POST'])
 def crear_factura():
     fac = { 
-    'id_factura': request.json['fctId'],
-    'id_cliente': request.json['pqtId'],
+    'id_factura': request.json['id_factura'],
+    'id_cliente': request.json['id_cliente'],
     'fecha': request.json['fecha'],
     'paquetes': request.json['paquetes'],
     'total' : request.json['total']
@@ -99,14 +99,13 @@ def crear_factura():
     return jsonify(fac)
 
 @app.route('/factura/<id_factura>', methods= ['GET'])
-def get_facturas(id_factura):
+def get_factura(id_factura):
     fac = [fct for fct in facturaBD if (fct['id_factura'] == id_factura)]
     return jsonify({'fct': fac})
             
 
 if __name__ == '__main__':
     app.run()
-
 
 
 
