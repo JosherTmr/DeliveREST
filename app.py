@@ -1,3 +1,4 @@
+# coding: utf-8
 from os import abort
 from flask import Flask
 from flask import jsonify
