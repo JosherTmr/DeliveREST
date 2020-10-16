@@ -60,7 +60,7 @@ def get_all_paquetes():
     return jsonify({'paquetes': paqueteBD})
 @app.route('/paquetes/<pqtId>', methods = ['GET'])
 def get_paquetes(pqtId):
-    paq = [pqt for pqt in paqueteBD if (pqt['id'] == pqtId)]
+    paq = [pqt for pqt in paqueteBD if (pqt['id_paq'] == pqtId)]
     return jsonify({'pqt': paq})
 
 @app.route('/paquetes/',methods=['POST'])
@@ -68,7 +68,7 @@ def create_paquete():
     dat = {
     'id_paq': request.json['id_paq'],
     'nombre_paq': request.json['nombre_paq'],
-    'precio': request.json['apellidos'],
+    'precio': request.json['precio'],
     'destino': request.json['destino'],
     'trayectoria':request.json['trayectoria']
     }
@@ -106,6 +106,7 @@ def get_facturas(id_factura):
 
 if __name__ == '__main__':
     app.run()
+
 
 
 
