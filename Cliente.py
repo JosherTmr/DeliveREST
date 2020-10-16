@@ -7,9 +7,6 @@
 
 
 
-# In[5]:
-
-
 '''Librerias'''
 import requests #libreria request 
 import json
@@ -18,6 +15,7 @@ from datetime import datetime
 URICliente = "http://restdelivery.azurewebsites.net/clientes/"
 URIPaquete = "http://restdelivery.azurewebsites.net/paquetes/"
 URIFactura = "http://restdelivery.azurewebsites.net/factura/"
+#Consumir servicio cliente
 def get_all_cliente():
     r = requests.get(URICliente) 
     z = json.loads(r.text)
@@ -28,7 +26,6 @@ def get_all_cliente():
               "\n\tCédula: ", y[i]['id'],
               "\n\tDirección: ", y[i]['direccion'],
               "\n\tCodigo Postal: ", y[i]['cpostal'])
-
 def get_cc():
     r = requests.get(URICliente) 
     z = json.loads(r.text)
@@ -120,6 +117,8 @@ def ver_all_paquetes():
           "\n\tPrecio: ", y[i]['precio'],
           "\n\tDestino: ", y[i]['destino'],
           "\n\tCosto trayectoria: ", y[i]['trayectoria'])
+#Consumir servicio factura
+
 def crear_factura(id_cliente, paquetes):
     id_fac = generarId(12345)
     fecha = datetime.now()
@@ -144,10 +143,9 @@ def ver_factura(id_fac):
           "\n\tID Cliente: ", y[i]['id_cliente'],
           "\n\tFecha: ", y[i]['fecha'])
     paq = y[i]['paquetes']
-    print("\tPaquetes y destino: ")
+    print("\tPaquetes y precio: ")
     for i in range (len(paq)):
-        print ("\t",i+1, paq[i][0]['nombre_paq'], "...." ,
-               paq[i][0]['destino'])
+        print ("\t",i+1, paq[i][0]['nombre_paq'], "...",  paq[i][0]['precio'] )
     print("\n\tTotal: ", y[0]['total'])
 
 if __name__ == '__main__':
@@ -179,10 +177,6 @@ if __name__ == '__main__':
             direc = input("Dirección: ")
             cp = input("Código postal: ")
             print(add_cliente(cc, nombre, apellido, direc, cp))
-            
-            
-            
-    
         
     while True: 
         print("*************************Opciones*************************")
@@ -249,11 +243,12 @@ if __name__ == '__main__':
                     print("\tCrear paquete")
                     nombre_paq = input("Ingrese el nombre de su producto: ")
                     precio = input("Ingrese el precio: ")
+                    print("Seleccionar destino: ")
                     for i in range( len(tray)):
-                        print(i+1,".",tray[i])
+                        print("\t",i+1,".",tray[i])
                     sel= int(input("Seleccione>>"))
                     destino = tray[sel-1]
-                    p = crear_paquete(nombre, precio, destino)
+                    p = crear_paquete(nombre_paq, precio, destino)
                     paq.append(p['pqt'])
                     while True:
                         print("\t1. Ver mis paquetes")
@@ -265,7 +260,6 @@ if __name__ == '__main__':
                                 if opc2 == 1:
                                     for i in range (len(paq)):
                                         print("Mis paquetes: ")
-                                        print(paq)
                                         print("\tNombre: ", paq[i][0]['nombre_paq'],
                                               "\n\tPrecio: ",paq[i][0]['precio'],
                                               "\n\tID: ", paq[i][0]['id_paq'],
