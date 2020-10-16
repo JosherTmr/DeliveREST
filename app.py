@@ -47,7 +47,7 @@ def create_cliente():
     return jsonify(dat)
 
 @app.route('/clientes/<cltId>',methods=['DELETE'])
-def delete_student(cltId):
+def delete_cliente(cltId):
     row = [clt for clt in clienteBD if (clt['id'] == cltId)]
     if len(row) == 0:
         abort(404)
