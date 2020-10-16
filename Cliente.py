@@ -144,9 +144,10 @@ def ver_factura(id_fac):
           "\n\tID Cliente: ", y[i]['id_cliente'],
           "\n\tFecha: ", y[i]['fecha'])
     paq = y[i]['paquetes']
-    print("\tPaquetes: ")
+    print("\tPaquetes y destino: ")
     for i in range (len(paq)):
-        print ("\t",i+1, paq[i][0]['nombre_paq'])
+        print ("\t",i+1, paq[i][0]['nombre_paq'], "...." ,
+               paq[i][0]['destino'])
     print("\n\tTotal: ", y[0]['total'])
 
 if __name__ == '__main__':
